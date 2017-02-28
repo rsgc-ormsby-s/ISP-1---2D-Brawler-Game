@@ -28,6 +28,7 @@
 		3FECC5CB1E65FBEB007A905C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3FECC5CE1E65FBEB007A905C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3FECC5D01E65FBEB007A905C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3FECC5D61E65FDF4007A905C /* Grade_11_Computer_Science_ISP_Proposal_-_Exemplar.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Grade_11_Computer_Science_ISP_Proposal_-_Exemplar.docx"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +64,7 @@
 				3FECC5BE1E65FBEA007A905C /* AppDelegate.swift */,
 				3FECC5C01E65FBEA007A905C /* GameScene.sks */,
 				3FECC5C21E65FBEA007A905C /* Actions.sks */,
+				3FECC5D61E65FDF4007A905C /* Grade_11_Computer_Science_ISP_Proposal_-_Exemplar.docx */,
 				3FECC5C41E65FBEB007A905C /* GameScene.swift */,
 				3FECC5C61E65FBEB007A905C /* GameViewController.swift */,
 				3FECC5C81E65FBEB007A905C /* Main.storyboard */,
