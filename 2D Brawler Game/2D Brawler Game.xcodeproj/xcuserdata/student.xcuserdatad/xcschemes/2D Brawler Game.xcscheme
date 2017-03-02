@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3FECC5BA1E65FBEA007A905C"
+               BlueprintIdentifier = "3FECC5DF1E6854DF007A905C"
                BuildableName = "2D Brawler Game.app"
                BlueprintName = "2D Brawler Game"
                ReferencedContainer = "container:2D Brawler Game.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3FECC5BA1E65FBEA007A905C"
+            BlueprintIdentifier = "3FECC5DF1E6854DF007A905C"
             BuildableName = "2D Brawler Game.app"
             BlueprintName = "2D Brawler Game"
             ReferencedContainer = "container:2D Brawler Game.xcodeproj">
@@ -55,7 +55,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3FECC5BA1E65FBEA007A905C"
+            BlueprintIdentifier = "3FECC5DF1E6854DF007A905C"
             BuildableName = "2D Brawler Game.app"
             BlueprintName = "2D Brawler Game"
             ReferencedContainer = "container:2D Brawler Game.xcodeproj">
@@ -74,7 +74,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3FECC5BA1E65FBEA007A905C"
+            BlueprintIdentifier = "3FECC5DF1E6854DF007A905C"
             BuildableName = "2D Brawler Game.app"
             BlueprintName = "2D Brawler Game"
             ReferencedContainer = "container:2D Brawler Game.xcodeproj">
