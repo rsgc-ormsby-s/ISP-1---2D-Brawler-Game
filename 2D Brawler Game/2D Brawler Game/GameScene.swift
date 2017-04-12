@@ -37,6 +37,9 @@ class GameScene: SKScene {
         moveDown = SKAction.moveBy(x: 0, y: -20, duration: 0.5)
         moveRight = SKAction.moveBy(x: 20, y: 0, duration: 0.5)
         moveLeft = SKAction.moveBy(x: -20, y: 0, duration: 0.5)
+        
+        // Invoke the spawn function
+        spawnObstacle()
     }
     
     override func keyDown(with event: NSEvent) {
@@ -57,5 +60,24 @@ class GameScene: SKScene {
             billy.texture = SKTexture(imageNamed: "Left")
             billy.run(moveLeft)
         }
+    }
+    
+    func spawnObstacle() {
+        let waspMonster = SKSpriteNode(imageNamed: "Wasp")
+        
+        // Define the starting position for the obstacle
+        
+        let startingPoint = CGPoint(x: 0, y: 40)
+        waspMonster.position = startingPoint // Set the starting position for the monster
+        waspMonster.size = CGSize(width: 60, height: 60)
+        //Add the obstacle to the scene
+        
+        addChild(waspMonster)
+        
+        // Move 
+        
+        let endingPosition = CGPoint(x: size.width, y: 40)
+        let waspMonsterMove = SKAction.move(to: endingPosition, duration: 5)
+        waspMonster.run(waspMonsterMove)
     }
 }

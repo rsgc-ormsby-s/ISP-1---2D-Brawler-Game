@@ -22,6 +22,7 @@
 		3FECC5ED1E6854DF007A905C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3FECC5F01E6854DF007A905C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3FECC5F21E6854DF007A905C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3FEE01BB1E9EA8C700D9F5D2 /* Independent_Study_Project_-_Checkpoint_1.docx */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Independent_Study_Project_-_Checkpoint_1.docx"; path = "../../../Independent_Study_Project_-_Checkpoint_1.docx"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +40,7 @@
 			isa = PBXGroup;
 			children = (
 				3FECC5E21E6854DF007A905C /* 2D Brawler Game */,
+				3FEE01BB1E9EA8C700D9F5D2 /* Independent_Study_Project_-_Checkpoint_1.docx */,
 				3FECC5E11E6854DF007A905C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -290,6 +292,7 @@
 				3FECC5F71E6854DF007A905C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
