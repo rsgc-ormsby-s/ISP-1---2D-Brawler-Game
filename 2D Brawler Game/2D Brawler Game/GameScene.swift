@@ -77,15 +77,20 @@ class GameScene: SKScene {
         //Add the obstacle to the scene
         
         addChild(waspMonster)
+    
         
-        // Movement
-        
-        //Generate random Vertical movement ending position
+        // Generate random Vertical movement ending position
         let randomVerticalMovement = CGFloat(arc4random_uniform(UInt32(size.height)))
-        
+        // Create ending position
         let endingPosition = CGPoint(x: size.width + 30, y: randomVerticalMovement)
+        // Create action
         let waspMonsterMove = SKAction.move(to: endingPosition, duration: 5)
-        waspMonster.run(waspMonsterMove)
+        
+        let waspMonsterRemove = SKAction.removeFromParent()
+        
+        let waspSequence = SKAction.sequence([waspMonsterMove,waspMonsterRemove])
+        // Run Action
+        waspMonster.run(waspSequence)
     }
 
 }
