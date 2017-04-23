@@ -37,9 +37,13 @@ class GameScene: SKScene {
         moveDown = SKAction.moveBy(x: 0, y: -20, duration: 0.5)
         moveRight = SKAction.moveBy(x: 20, y: 0, duration: 0.5)
         moveLeft = SKAction.moveBy(x: -20, y: 0, duration: 0.5)
+
+        let actionWait = SKAction.wait(forDuration: 2)
+        let actionSpawn = SKAction.run() { [weak self] in self?.spawnObstacle() }
+        let actionSequence = SKAction.sequence([actionWait,actionSpawn])
+        let actionObstacleRepeat = SKAction.repeatForever(actionSequence)
         
-        // Invoke the spawn function
-        spawnObstacle()
+        run(actionObstacleRepeat)
     }
     
     override func keyDown(with event: NSEvent) {
@@ -66,18 +70,22 @@ class GameScene: SKScene {
         let waspMonster = SKSpriteNode(imageNamed: "Wasp")
         
         // Define the starting position for the obstacle
-        
-        let startingPoint = CGPoint(x: 0, y: 40)
+        let verticalPosition = CGFloat(arc4random_uniform(UInt32(size.height)))
+        let startingPoint = CGPoint(x: 0, y: verticalPosition)
         waspMonster.position = startingPoint // Set the starting position for the monster
         waspMonster.size = CGSize(width: 60, height: 60)
         //Add the obstacle to the scene
         
         addChild(waspMonster)
         
-        // Move 
+        // Movement
         
-        let endingPosition = CGPoint(x: size.width, y: 40)
+        //Generate random Vertical movement ending position
+        let randomVerticalMovement = CGFloat(arc4random_uniform(UInt32(size.height)))
+        
+        let endingPosition = CGPoint(x: size.width + 30, y: randomVerticalMovement)
         let waspMonsterMove = SKAction.move(to: endingPosition, duration: 5)
         waspMonster.run(waspMonsterMove)
     }
+
 }
