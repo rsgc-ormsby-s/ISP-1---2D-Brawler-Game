@@ -13,6 +13,9 @@ class GameScene: SKScene {
     
     var billy = SKSpriteNode()
     
+    let scoreLabel = SKLabelNode(fontNamed: "Helvetica-Bold")
+    var score = 3
+
     // Declare billy movements
     var moveUp = SKAction()
     var moveDown = SKAction()
@@ -44,6 +47,20 @@ class GameScene: SKScene {
         let actionObstacleRepeat = SKAction.repeatForever(actionSequence)
         
         run(actionObstacleRepeat)
+        
+        scoreLabel.text = String(score)
+        scoreLabel.fontColor = SKColor.black
+        scoreLabel.fontSize = 96
+        scoreLabel.zPosition = 150
+        scoreLabel.position = CGPoint(x: size.width - size.width / 8, y: size.height - size.height / 4)
+        addChild(scoreLabel)
+    }
+    
+    // This is a function that runs about 60 times per second
+    override func update(_ currentTime: TimeInterval) {
+    //Check for collision between santa and the obstacles 
+    checkCollisions()
+        
     }
     
     override func keyDown(with event: NSEvent) {
@@ -74,6 +91,10 @@ class GameScene: SKScene {
         let startingPoint = CGPoint(x: 0, y: verticalPosition)
         waspMonster.position = startingPoint // Set the starting position for the monster
         waspMonster.size = CGSize(width: 60, height: 60)
+        
+        // Give the obstacle a name
+        waspMonster.name = "wasp"
+        
         //Add the obstacle to the scene
         
         addChild(waspMonster)
@@ -92,5 +113,43 @@ class GameScene: SKScene {
         // Run Action
         waspMonster.run(waspSequence)
     }
+
+    // This function checks for collisions between monsters and Billy
+    
+    func checkCollisions() {
+        // Keep track of all of the obstacles currently colliding with the hero
+        var hitObstacles : [SKSpriteNode] = []
+        
+        enumerateChildNodes(withName: "wasp", using: { node, _ in
+        
+        let waspMonster = node as! SKSpriteNode
+        
+
+            if waspMonster.frame.intersects(self.billy.frame) {
+        // This obstacle intersects with bILLY
+            hitObstacles.append(waspMonster)
+        }
+        })
+        // Loop over all the monsters colliding with the hero and effect them as the game design dictates.
+        
+        for waspMonster in hitObstacles {
+            // Call a function to get rid of the monster
+            monsterHit(by: waspMonster)
+        }
+
+    }
+
+// Function that removes monster
+
+func monsterHit(by waspMonster: SKSpriteNode) {
+    
+    score -= 1
+    
+    scoreLabel.text = String(score)
+    
+    waspMonster.removeFromParent()
+    
+    
+}
 
 }
