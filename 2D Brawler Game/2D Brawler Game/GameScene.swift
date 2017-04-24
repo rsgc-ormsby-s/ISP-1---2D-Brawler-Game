@@ -13,6 +13,9 @@ class GameScene: SKScene {
     
     var billy = SKSpriteNode()
     
+    var gameIsActive = true
+    
+    let gameOver = SKLabelNode(fontNamed: "Helvetica-Bold")
     let scoreLabel = SKLabelNode(fontNamed: "Helvetica-Bold")
     var score = 3
 
@@ -31,6 +34,7 @@ class GameScene: SKScene {
         background.zPosition = -1
         self.addChild(background)
         //Add the Sprite for Billy
+
         billy = SKSpriteNode(imageNamed: "Backwards")
         billy.position = CGPoint(x: size.width / 2, y: size.height/2)
         self.addChild(billy)
@@ -54,6 +58,13 @@ class GameScene: SKScene {
         scoreLabel.zPosition = 150
         scoreLabel.position = CGPoint(x: size.width - size.width / 8, y: size.height - size.height / 4)
         addChild(scoreLabel)
+        
+        gameOver.text = String("Game Over")
+        gameOver.fontColor = SKColor.black
+        gameOver.fontSize = 96
+        gameOver.zPosition = 150
+        gameOver.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        gameOver.isHidden = true
     }
     
     // This is a function that runs about 60 times per second
@@ -68,6 +79,7 @@ class GameScene: SKScene {
             return
         }
         
+        if gameIsActive == true {
         if keysPressed == "w" {
             billy.texture = SKTexture(imageNamed: "Forward")
             billy.run(moveUp)
@@ -81,9 +93,13 @@ class GameScene: SKScene {
             billy.texture = SKTexture(imageNamed: "Left")
             billy.run(moveLeft)
         }
+        }
     }
     
     func spawnObstacle() {
+        
+        if gameIsActive == true {
+            
         let waspMonster = SKSpriteNode(imageNamed: "Wasp")
         
         // Define the starting position for the obstacle
@@ -110,8 +126,10 @@ class GameScene: SKScene {
         let waspMonsterRemove = SKAction.removeFromParent()
         
         let waspSequence = SKAction.sequence([waspMonsterMove,waspMonsterRemove])
+
         // Run Action
-        waspMonster.run(waspSequence)
+        waspMonster.run(waspSequence, withKey: "moveWasp")
+        }
     }
 
     // This function checks for collisions between monsters and Billy
@@ -143,12 +161,38 @@ class GameScene: SKScene {
 
 func monsterHit(by waspMonster: SKSpriteNode) {
     
+    
     score -= 1
     
     scoreLabel.text = String(score)
     
     waspMonster.removeFromParent()
     
+    if score == 0 {
+
+        //Add Child to the Scene
+        addChild(gameOver)
+
+        //Action Sequence for Game Over Ending Screen
+        let gameOverMakeVisible = SKAction.unhide()
+        let gameOverFadeIn = SKAction.fadeIn(withDuration: 1)
+        let gameOverDelay = SKAction.wait(forDuration: 2)
+        let gameOverSequence = SKAction.sequence([gameOverMakeVisible, gameOverFadeIn, gameOverDelay])
+        
+        gameOver.run(gameOverSequence)
+        gameIsActive = false
+        
+        // Stop the wasps
+        for node in self.children {
+            if let nodeName = node.name {
+                if nodeName == "wasp" {
+                    node.removeAction(forKey: "moveWasp")
+                }
+            }
+        }
+        
+        
+    }
     
 }
 
