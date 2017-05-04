@@ -31,7 +31,9 @@ class GameScene: SKScene {
     var score = 3
     
     //Declare the timer starting amount
-    var timer = 0
+    var startTime = 0
+    
+    var timeSoFar = 0
 
     // Declare billy movements in variables.
     var moveUp = SKAction()
@@ -87,7 +89,7 @@ class GameScene: SKScene {
         
         //Create the Timer
         
-        timerLabel.text = String(timer)
+        timerLabel.text = String(timeSoFar)
         timerLabel.fontColor = SKColor.red
         timerLabel.fontSize = 96
         timerLabel.zPosition = 150
@@ -100,7 +102,22 @@ class GameScene: SKScene {
     // This is a function that runs about 60 times per second
     override func update(_ currentTime: TimeInterval) {
     //Check for collision between Billy and the obstacles
-    checkCollisions()
+        
+        // Check to see if the game just started
+        if gameIsActive == true {
+        if startTime == 0 {
+            startTime = Int(currentTime)
+        } else {
+            let now = Int(currentTime) - startTime
+            
+            // Only update the timeSoFar and the timer label when the timeSoFar is not "now"
+            if timeSoFar != now {
+                timeSoFar = now
+                timerLabel.text = String(now)
+            }
+        }
+        }
+        checkCollisions()
     }
     
     
