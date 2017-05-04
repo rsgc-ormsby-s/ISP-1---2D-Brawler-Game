@@ -23,8 +23,15 @@ class GameScene: SKScene {
     //Create variable for the Score Label
     let scoreLabel = SKLabelNode(fontNamed: "Helvetica-Bold")
     
+    //Create variable for the Timer Label
+    
+    let timerLabel = SKLabelNode(fontNamed: "Helvetica-Bold")
+    
     //Declare the starting score ammount
     var score = 3
+    
+    //Declare the timer starting amount
+    var timer = 0
 
     // Declare billy movements in variables.
     var moveUp = SKAction()
@@ -40,7 +47,6 @@ class GameScene: SKScene {
         background.size = self.frame.size
         background.zPosition = -1
         self.addChild(background)
-        
         //Add the Sprite for Billy
 
         billy = SKSpriteNode(imageNamed: "Backwards")
@@ -54,6 +60,7 @@ class GameScene: SKScene {
         moveDown = SKAction.moveBy(x: 0, y: -20, duration: 0.5)
         moveRight = SKAction.moveBy(x: 20, y: 0, duration: 0.5)
         moveLeft = SKAction.moveBy(x: -20, y: 0, duration: 0.5)
+        
 
         let actionWait = SKAction.wait(forDuration: 2)
         let actionSpawn = SKAction.run() { [weak self] in self?.spawnObstacle() }
@@ -62,6 +69,7 @@ class GameScene: SKScene {
         
         run(actionObstacleRepeat)
         
+        //Create the score label
         scoreLabel.text = String(score)
         scoreLabel.fontColor = SKColor.yellow
         scoreLabel.fontSize = 96
@@ -69,12 +77,22 @@ class GameScene: SKScene {
         scoreLabel.position = CGPoint(x: size.width - size.width / 8, y: size.height - size.height / 4)
         addChild(scoreLabel)
         
+        //Create the Game Over screen words at the end
         gameOver.text = String("Game Over")
         gameOver.fontColor = SKColor.black
         gameOver.fontSize = 96
         gameOver.zPosition = 150
         gameOver.position = CGPoint(x: size.width / 2, y: size.height / 2)
         gameOver.isHidden = true
+        
+        //Create the Timer
+        
+        timerLabel.text = String(timer)
+        timerLabel.fontColor = SKColor.red
+        timerLabel.fontSize = 96
+        timerLabel.zPosition = 150
+        timerLabel.position = CGPoint(x: size.width - size.width + 100, y: size.height - size.height / 4)
+        addChild(timerLabel)
     }
     
     
@@ -91,8 +109,10 @@ class GameScene: SKScene {
         guard let keysPressed = event.characters else {
             return
         }
+        //If a certain key is pressed, move in the assigned direction, creating movement commands and the textures are changed according to the direction.
         
         if gameIsActive == true {
+            
         if keysPressed == "w" {
             billy.texture = SKTexture(imageNamed: "Forward")
             billy.run(moveUp)
@@ -134,11 +154,13 @@ class GameScene: SKScene {
     
         
         // Generate random Vertical movement ending position
+            let randomDuration = (Double(arc4random_uniform(UInt32(10))))
+
         let randomVerticalMovement = CGFloat(arc4random_uniform(UInt32(size.height)))
         // Create ending position
         let endingPosition = CGPoint(x: size.width + 30, y: randomVerticalMovement)
         // Create action
-        let waspMonsterMove = SKAction.move(to: endingPosition, duration: 5)
+            let waspMonsterMove = SKAction.move(to: endingPosition, duration: randomDuration)
         
         let waspMonsterRemove = SKAction.removeFromParent()
         
@@ -155,12 +177,19 @@ class GameScene: SKScene {
     
     func checkCollisions() {
         // Keep track of all of the monsters currently colliding with the hero
+        
+        if billy.position.x > size.width || billy.position.x < 0 {
+            billy.position = CGPoint(x: size.width/2, y: size.height/2)
+        }
+        
+        if billy.position.y > size.height || billy.position.y < 0 {
+            billy.position = CGPoint(x: size.width/2, y: size.height/2)
+        }
         var hitObstacles : [SKSpriteNode] = []
         
         enumerateChildNodes(withName: "wasp", using: { node, _ in
         
         let waspMonster = node as! SKSpriteNode
-        
 
             if waspMonster.frame.intersects(self.billy.frame) {
         // This obstacle intersects with Billy
