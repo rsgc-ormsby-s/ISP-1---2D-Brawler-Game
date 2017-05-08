@@ -14,6 +14,8 @@ class GameScene: SKScene {
     //Create variable for the hero (Billy)
     var billy = SKSpriteNode()
     
+    var background = SKSpriteNode()
+    
     //Variable to turn off parts of the code under certain circumstances (Ex. Game Over Screen)
     var gameIsActive = true
     
@@ -44,7 +46,7 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         //Set the background
         backgroundColor = SKColor.black
-        let background = SKSpriteNode(imageNamed: "Grass")
+        background = SKSpriteNode(imageNamed: "Grass")
         background.position = CGPoint(x: size.width / 2, y: size.height / 2)
         background.size = self.frame.size
         background.zPosition = -1
@@ -63,8 +65,8 @@ class GameScene: SKScene {
         moveRight = SKAction.moveBy(x: 20, y: 0, duration: 0.5)
         moveLeft = SKAction.moveBy(x: -20, y: 0, duration: 0.5)
         
-
-        let actionWait = SKAction.wait(forDuration: 2)
+//Create the obstacles
+        let actionWait = SKAction.wait(forDuration: 1.5)
         let actionSpawn = SKAction.run() { [weak self] in self?.spawnObstacle() }
         let actionSequence = SKAction.sequence([actionWait,actionSpawn])
         let actionObstacleRepeat = SKAction.repeatForever(actionSequence)
@@ -87,10 +89,10 @@ class GameScene: SKScene {
         gameOver.position = CGPoint(x: size.width / 2, y: size.height / 2)
         gameOver.isHidden = true
         
-        //Create the Timer
+        //Create the Timer label
         
         timerLabel.text = String(timeSoFar)
-        timerLabel.fontColor = SKColor.red
+        timerLabel.fontColor = SKColor.black
         timerLabel.fontSize = 96
         timerLabel.zPosition = 150
         timerLabel.position = CGPoint(x: size.width - size.width + 100, y: size.height - size.height / 4)
@@ -103,6 +105,7 @@ class GameScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
     //Check for collision between Billy and the obstacles
         
+        //Algorithm to update timer
         // Check to see if the game just started
         if gameIsActive == true {
         if startTime == 0 {
@@ -143,6 +146,16 @@ class GameScene: SKScene {
             billy.texture = SKTexture(imageNamed: "Left")
             billy.run(moveLeft)
         }
+            //Changes the background based on the key pressed
+            if keysPressed == "1" {
+                background.texture = SKTexture(imageNamed: "Grass")
+            } else if keysPressed == "2" {
+                background.texture = SKTexture(imageNamed: "Sand")
+            } else if keysPressed == "3" {
+                background.texture = SKTexture(imageNamed: "Cave")
+            } else if keysPressed == "4" {
+                background.texture = SKTexture(imageNamed: "Highway")
+            }
         }
     }
     
